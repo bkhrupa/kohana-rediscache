@@ -38,11 +38,11 @@ Usage
 
     $redis_cache = Cache::instance('redis');
     $redis_cache->set('test_cache', array('foo', 'bar'), 10);
-    $redis_cache->get('test_cache'));
+    $redis_cache->get('test_cache');
 
 
 ##TODO
 
-1. Comment code
+1. Comment code +
 2. Kohana guide
 3. Unit tests

@@ -26,7 +26,7 @@ class Kohana_Cache_Redis extends Cache {
     protected $_redis;
 
     /**
-     * @var  Config
+     * @var Config
      */
     protected $_config = array();
 
@@ -55,30 +55,39 @@ class Kohana_Cache_Redis extends Cache {
             throw new Cache_Exception('PHP redis extension is not available.');
         }
 
+        // Setup parent
         parent::__construct($config);
 
+        // Prepare config
         $this->_prepareConfig($config);
 
-        // connect
+        // Connect
         $this->_redis = new Redis();
         $this->_redis->connect($this->_config['host'], $this->_config['port'], 1);
 
-        // serialize
+        // Serialize
         if($this->_config['igbinary_serialize'])
         {
             $this->_redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY);
         }
         else
         {
-            // serialize by php
+            // Serialize by php
             // @url https://github.com/nicolasff/phpredis/#setoption
             $this->_redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP);
         }
 
+        // Select database
         $this->_redis->select($this->_config['db_num']);
     }
 
-
+    /**
+     * Get cached value by id
+     *
+     * @param   string  $id         id of cache to entry
+     * @param   null    $default    default value to return if cache miss
+     * @return  mixed
+     */
     public function get($id, $default = NULL)
     {
         // Get the value from Redis
@@ -93,30 +102,63 @@ class Kohana_Cache_Redis extends Cache {
         return $value;
     }
 
+    /**
+     * Set a value to cache
+     *
+     * @param   string      $id         id of cache to entry
+     * @param   mixed       $data       mixed data
+     * @param   bool|int    $lifetime   Expire time in seconds
+     * @return  bool        TRUE if the command is successful
+     */
     public function set($id, $data, $lifetime = false)
     {
-        if($lifetime){
+        if($lifetime)
+        {
             return $this->_redis->setex($id, $lifetime, $data);
-        } else {
+        }
+        else
+        {
             return $this->_redis->set($id, $data);
         }
     }
 
+    /**
+     * Delete cache by id
+     *
+     * @param   string    $id
+     * @return  int       Number of keys deleted
+     */
     public function delete($id)
     {
         return $this->_redis->del($id);
     }
 
+    /**
+     * Flush all redis cache
+     *
+     * @return  bool    Always TRUE
+     */
     public function delete_all()
     {
         $this->_redis->flushDB();
     }
 
+    /**
+     * Call redis functions
+     *
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     * @throws Kohana_Cache_Exception
+     */
     public function __call($name, $arguments)
     {
-        try {
-            $rez=call_user_func_array(array($this->_redis, $name), $arguments);
-        } catch (ErrorException $e){
+        try
+        {
+            $rez = call_user_func_array(array($this->_redis, $name), $arguments);
+        }
+        catch (ErrorException $e)
+        {
             throw new Kohana_Cache_Exception($e->getMessage());
         }
 
@@ -124,6 +166,11 @@ class Kohana_Cache_Redis extends Cache {
     }
 
 
+    /**
+     * Prepare config
+     *
+     * @param $config
+     */
     private function _prepareConfig($config)
     {
         foreach($this->_default_config as $key => $value)
