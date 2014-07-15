@@ -1,19 +1,22 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
+ * Class Kohana_Cache_Redis
+ *
  * ### System requirements
  *
  * Kohana 3.3
  * PHP 5.2.4 or greater
+ *
  * driver - phpredis (https://github.com/nicolasff/phpredis)
  *
  * Original code: (https://github.com/infarmer/phpredis-kohana3.3) Mikhno Roman (admin@infarmer.ru)
  * ---------------------------------------------------------
- * @package    Kohana/Cache
- * @category   Module
+ * @package    Kohana/RedisCache
+ * @category   Base
  * @version    0.1
- * @author     Bogdan Khrupa (bkhrupa@gmail.com)
- * @copyright  (c) 2013 Bogdan Khrupa
+ * @author     Bogdan Khrupa (lizard.freddi@gmail.com)
+ * @copyright  (c) 2013-2014 Bogdan Khrupa
  * @license    free
  */
 class Kohana_Cache_Redis extends Cache {
