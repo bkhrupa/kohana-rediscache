@@ -1,0 +1,30 @@
+{
+    "name": "bkhrupa/kohana-rediscache",
+    "type": "kohana-module",
+    "description": "Very simple phpredis cache module for kohana3.3",
+    "keywords": ["kohana", "cache", "redis", "module"],
+    "homepage": "https://github.com/bkhrupa/kohana-rediscache",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bogdan Khrupa",
+            "email": "lizard.freddi@gmail.com",
+            "homepage": "http://lizard.if.ua",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0",
+        "kohana/core": ">=3.3",
+        "kohana/cache": ">=3.3",
+        "php": ">=5.3.3"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-3.3/develop": "3.3.x-dev"
+        },
+        "installer-paths": {
+            "vendor/{$vendor}/{$name}": ["type:kohana-module"]
+        }
+    }
+}
