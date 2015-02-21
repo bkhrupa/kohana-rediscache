@@ -9,7 +9,7 @@ Enable module `bootstrap.php`
         ...
     ));
 
-Config, add to Kohana cache config redis driver `config/cache.php`
+Config. Add to Kohana cache config redis driver `config/cache.php`
 
     ...
     'redis' => array(
@@ -21,7 +21,7 @@ Config, add to Kohana cache config redis driver `config/cache.php`
     ),
     ...
 
-If need redis to by default cache driver `bootstrap.php`
+If redis by default cache driver needed `bootstrap.php`
 
     // default cache driver
     Cache::$default = 'redis';

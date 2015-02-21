@@ -17,7 +17,7 @@ return array
 			'description' => 'Redis cache guide.',
 
 			// Copyright message, shown in the footer for this module
-			'copyright' => '&copy; 2013–2015 Bogdan Khrupa',
+			'copyright' => '&copy; Bogdan Khrupa',
 		)
 	)
 );

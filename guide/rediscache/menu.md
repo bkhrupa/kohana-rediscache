@@ -1,3 +1,3 @@
-##[Redis Cache]()
+## [Redis Cache]()
   - [Configuration](config)
   - [Examples](examples)

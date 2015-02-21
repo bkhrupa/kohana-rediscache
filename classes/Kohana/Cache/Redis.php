@@ -16,7 +16,7 @@
  * @category   Base
  * @version    0.1
  * @author     Bogdan Khrupa (lizard.freddi@gmail.com)
- * @copyright  (c) 2013-2014 Bogdan Khrupa
+ * @copyright  (c) Bogdan Khrupa
  * @license    free
  */
 class Kohana_Cache_Redis extends Cache
@@ -109,9 +109,9 @@ class Kohana_Cache_Redis extends Cache
 	/**
 	 * Set a value to cache
 	 *
-	 * @param   string $id id of cache to entry
-	 * @param   mixed $data mixed data
-	 * @param   bool|int $lifetime Expire time in seconds
+	 * @param   string      $id id of cache to entry
+	 * @param   mixed       $data mixed data
+	 * @param   bool|int    $lifetime Expire time in seconds
 	 * @return  bool        TRUE if the command is successful
 	 */
 	public function set($id, $data, $lifetime = false)
@@ -130,7 +130,7 @@ class Kohana_Cache_Redis extends Cache
 	 * Delete cache by id
 	 *
 	 * @param   string $id
-	 * @return  int       Number of keys deleted
+	 * @return  int    Number of keys deleted
 	 */
 	public function delete($id)
 	{
