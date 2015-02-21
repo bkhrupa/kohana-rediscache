@@ -45,4 +45,4 @@ Usage
 
 1. Comment code +
 2. Kohana guide +
-3. Unit tests
+3. Unit tests +
