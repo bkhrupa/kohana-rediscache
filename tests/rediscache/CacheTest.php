@@ -21,7 +21,7 @@ class Rediscache_CacheTest extends PHPUnit_Framework_TestCase
 		}
 
 		$redis = new Redis;
-		if ( ! $redis->connect($config['host'], $config['port'], 1))
+		if ( ! $redis->connect($config['host'], $config['port'], $config['timeout']))
 		{
 			$this->markTestSkipped('Unable to connect to redis server @ '.$config['host'].':'.$config['port']);
 		}

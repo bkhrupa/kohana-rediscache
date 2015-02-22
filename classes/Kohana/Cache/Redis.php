@@ -14,10 +14,10 @@
  * ---------------------------------------------------------
  * @package    Kohana/RedisCache
  * @category   Base
- * @version    0.1
+ * @version    1.0.0
  * @author     Bogdan Khrupa (lizard.freddi@gmail.com)
  * @copyright  (c) Bogdan Khrupa
- * @license    free
+ * @license    MIT
  */
 class Kohana_Cache_Redis extends Cache
 {
@@ -40,8 +40,12 @@ class Kohana_Cache_Redis extends Cache
 	 * @var array
 	 */
 	protected $_default_config = array(
+		// Can be a host, or the path to a unix domain socket
 		'host' => 'localhost',
-		'port' => 6379,
+		// Point to the port where redis is listening for connections. Set this parameter to NULL when using UNIX domain sockets. Default 6379
+		'port' => NULL,
+		// The connection timeout to a redis host, expressed in seconds.
+		'timeout' => 1,
 		'db_num' => 0,
 		'igbinary_serialize' => false,
 	);
@@ -67,7 +71,7 @@ class Kohana_Cache_Redis extends Cache
 
 		// Connect
 		$this->_redis = new Redis;
-		$this->_redis->connect($this->_config['host'], $this->_config['port'], 1);
+		$this->_redis->connect($this->_config['host'], $this->_config['port'], $this->_config['timeout']);
 
 		// Serialize
 		if ($this->_config['igbinary_serialize'])
