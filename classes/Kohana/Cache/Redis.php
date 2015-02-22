@@ -71,7 +71,10 @@ class Kohana_Cache_Redis extends Cache
 
 		// Connect
 		$this->_redis = new Redis;
-		$this->_redis->connect($this->_config['host'], $this->_config['port'], $this->_config['timeout']);
+		if ( ! $this->_redis->connect($this->_config['host'], $this->_config['port'], $this->_config['timeout']))
+		{
+			throw new Cache_Exception('Redis could not connect to host \':host\'', array(':host' => $this->_config['host']));
+		}
 
 		// Serialize
 		if ($this->_config['igbinary_serialize'])
