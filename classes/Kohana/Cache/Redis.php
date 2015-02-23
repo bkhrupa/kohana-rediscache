@@ -14,7 +14,7 @@
  * ---------------------------------------------------------
  * @package    Kohana/RedisCache
  * @category   Base
- * @version    1.0.0
+ * @version    1.1.0
  * @author     Bogdan Khrupa (lizard.freddi@gmail.com)
  * @copyright  (c) Bogdan Khrupa
  * @license    MIT
