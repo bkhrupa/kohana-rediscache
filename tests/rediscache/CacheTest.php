@@ -50,10 +50,11 @@ class Rediscache_CacheTest extends PHPUnit_Framework_TestCase
 	{
 		$data = array('foo', 'bar');
 
-		$this->cache->set('test_cache', $data, 1);
-		$this->assertEquals($data, $this->cache->get('test_cache'));
-		usleep(1500000);
-		$this->assertEquals(null, $this->cache->get('test_cache'));
+		$this->cache->set('test_by_time', $data, 1);
+		$this->assertEquals($data, $this->cache->get('test_by_time'));
+		usleep(2100000);
+		$this->assertEquals(null, $this->cache->get('test_by_time'));
+		$this->assertEquals(0, $this->cache->delete('test_by_time'));
 	}
 
 	public function test_get_by_default_value()
