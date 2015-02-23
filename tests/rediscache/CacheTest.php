@@ -58,7 +58,7 @@ class Rediscache_CacheTest extends PHPUnit_Framework_TestCase
 
 	public function test_get_by_default_value()
 	{
-		$this->assertEquals('foo', $this->cache->get('test_cache', 'foo'));
+		$this->assertEquals('foo', $this->cache->get('invalid_key', 'foo'));
 	}
 
 }
