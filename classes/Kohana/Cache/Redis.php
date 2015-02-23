@@ -182,7 +182,7 @@ class Kohana_Cache_Redis extends Cache
 			$rez = call_user_func_array(array($this->_redis, $name), $arguments);
 		} catch (ErrorException $e)
 		{
-			throw new Kohana_Cache_Exception($e->getMessage());
+			throw new Cache_Exception($e->getMessage());
 		}
 
 		return $rez;
