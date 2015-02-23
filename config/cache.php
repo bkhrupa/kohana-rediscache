@@ -22,5 +22,7 @@ return array
 		'timeout' => 1,
 		'db_num' => 0,
 		'igbinary_serialize' => FALSE,
+		// Custom prefix, added to all `$id` in `set`, `get`, `delete` methods
+		'prefix_id' => NULL,
 	),
 );

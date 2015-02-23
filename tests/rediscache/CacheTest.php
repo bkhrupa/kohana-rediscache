@@ -61,4 +61,10 @@ class Rediscache_CacheTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('foo', $this->cache->get('invalid_key', 'foo'));
 	}
 
+	public function test_custom_prefix()
+	{
+		$redis = Cache::instance('redis')->config('prefix_id', 'prefix_');
+		$this->assertEquals('prefix_key', $redis->add_prefix('key'));
+	}
+
 }

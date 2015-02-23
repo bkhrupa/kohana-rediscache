@@ -48,6 +48,8 @@ class Kohana_Cache_Redis extends Cache
 		'timeout' => 1,
 		'db_num' => 0,
 		'igbinary_serialize' => false,
+		// Custom prefix, added to all `$id` in `set`, `get`, `delete` methods
+		'prefix_id' => NULL,
 	);
 
 	/**
@@ -102,7 +104,7 @@ class Kohana_Cache_Redis extends Cache
 	public function get($id, $default = NULL)
 	{
 		// Get the value from Redis
-		$value = $this->_redis->get($id);
+		$value = $this->_redis->get($this->add_prefix($id));
 
 		if (empty($value))
 		{
@@ -125,12 +127,23 @@ class Kohana_Cache_Redis extends Cache
 	{
 		if ($lifetime)
 		{
-			return $this->_redis->setex($id, $lifetime, $data);
+			return $this->_redis->setex($this->add_prefix($id), $lifetime, $data);
 		}
 		else
 		{
-			return $this->_redis->set($id, $data);
+			return $this->_redis->set($this->add_prefix($id), $data);
 		}
+	}
+
+	/**
+	 * Added prefix to `$id`
+	 *
+	 * @param	string	$id
+	 * @return	string
+	 */
+	public function add_prefix($id)
+	{
+		return (string)$this->_config['prefix_id'].$id;
 	}
 
 	/**
@@ -141,7 +154,7 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function delete($id)
 	{
-		return $this->_redis->del($id);
+		return $this->_redis->del($this->add_prefix($id));
 	}
 
 	/**

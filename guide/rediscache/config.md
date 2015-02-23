@@ -38,4 +38,18 @@ If redis by default cache driver needed `bootstrap.php`
         'db_num'             => 0,
         'igbinary_serialize' => FALSE,
     ),
+
+## Add custom id prefix
+
+If you need add custom prefix to redis key `id` to `set()`, `get()` and `delete()` methods.
+
+    'redis' => array(
+        'driver'             => 'redis',
+        'host'               => 'localhost',
+        'port'               => 6379,
+        'timeout'            => 1
+        'db_num'             => 0,
+        'igbinary_serialize' => FALSE,
+        'prefix_id' => 'prefix_',
+    ),
     
