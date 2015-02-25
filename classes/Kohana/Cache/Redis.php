@@ -46,6 +46,7 @@ class Kohana_Cache_Redis extends Cache
 		'port' => 6379,
 		// The connection timeout to a redis host, expressed in seconds.
 		'timeout' => 1,
+		'default_expire' => 3600,
 		'db_num' => 0,
 		'igbinary_serialize' => false,
 		// Custom prefix, added to all `$id` in `set`, `get`, `delete` methods
@@ -128,21 +129,21 @@ class Kohana_Cache_Redis extends Cache
 	 * @param   bool|int $lifetime Expire time in seconds
 	 * @return  bool        TRUE if the command is successful
 	 */
-	public function set($id, $data, $lifetime = false)
+	public function set($id, $data, $lifetime = NULL)
 	{
 		if ( ! $this->_redis AND $this->_redis->IsConnected() === FALSE)
 		{
 			throw new Cache_Exception('No connect to Redis server');
 		}
 
-		if ($lifetime)
+		// If lifetime is NULL
+		if ($lifetime === NULL)
 		{
-			return $this->_redis->setex($this->add_prefix($id), $lifetime, $data);
+			// Set to the default expiry
+			$lifetime = Arr::get($this->_config, 'default_expire', Cache::DEFAULT_EXPIRE);
 		}
-		else
-		{
-			return $this->_redis->set($this->add_prefix($id), $data);
-		}
+
+		return $this->_redis->setex($this->add_prefix($id), $lifetime, $data);
 	}
 
 	/**

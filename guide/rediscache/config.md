@@ -16,7 +16,7 @@ Config. Add to Kohana cache config redis driver `config/cache.php`
         'driver'             => 'redis',
         'host'               => 'localhost',
         'port'               => 6379,
-        'timeout'            => 1
+        'timeout'            => 1,
         'db_num'             => 0,
         'igbinary_serialize' => FALSE,
     ),
@@ -34,7 +34,7 @@ If redis by default cache driver needed `bootstrap.php`
         'host'               => '/var/run/redis/redis.sock',
         // Set this parameter to NULL when using UNIX domain sockets.
         'port'               => NULL
-        'timeout'            => 1
+        'timeout'            => 1,
         'db_num'             => 0,
         'igbinary_serialize' => FALSE,
     ),
@@ -47,9 +47,19 @@ If you need add custom prefix to redis key `id` to `set()`, `get()` and `delete(
         'driver'             => 'redis',
         'host'               => 'localhost',
         'port'               => 6379,
-        'timeout'            => 1
+        'timeout'            => 1,
         'db_num'             => 0,
         'igbinary_serialize' => FALSE,
         'prefix_id' => 'prefix_',
     ),
     
+# Default expire time
+
+    'redis' => array(
+            'driver'             => 'redis',
+            'host'               => 'localhost',
+            'port'               => 6379,
+            'timeout'            => 1,
+            'default_expire'     => 3600,
+            'db_num'             => 0,
+    ),

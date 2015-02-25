@@ -20,6 +20,7 @@ return array
 		'port' => NULL,
 		// The connection timeout to a redis host, expressed in seconds.
 		'timeout' => 1,
+		'default_expire' => 3600,
 		'db_num' => 0,
 		'igbinary_serialize' => FALSE,
 		// Custom prefix, added to all `$id` in `set`, `get`, `delete` methods
