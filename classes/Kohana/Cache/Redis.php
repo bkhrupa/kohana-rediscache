@@ -27,7 +27,7 @@ class Kohana_Cache_Redis extends Cache
 	 *
 	 * @var Redis
 	 */
-	protected $_redis;
+	protected $_redis = null;
 
 	/**
 	 * @var Config
@@ -103,6 +103,9 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function get($id, $default = NULL)
 	{
+		if (!$this->_redis || $this->_redis->IsConnected() === FALSE)
+			throw new Cache_Exception('No connect to server');
+			
 		// Get the value from Redis
 		$value = $this->_redis->get($this->add_prefix($id));
 
@@ -125,6 +128,9 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function set($id, $data, $lifetime = false)
 	{
+		if (!$this->_redis || $this->_redis->IsConnected() === FALSE)
+			throw new Cache_Exception('No connect to server');
+			
 		if ($lifetime)
 		{
 			return $this->_redis->setex($this->add_prefix($id), $lifetime, $data);
@@ -143,7 +149,10 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function add_prefix($id)
 	{
-		return (string)$this->_config['prefix_id'].$id;
+		if (!empty($this->_config['prefix_id']))
+			return $this->_config['prefix_id'] . $id;
+		else
+			return $id;
 	}
 
 	/**
@@ -154,6 +163,9 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function delete($id)
 	{
+		if (!$this->_redis || $this->_redis->IsConnected() === FALSE)
+			throw new Cache_Exception('No connect to server');
+			
 		return $this->_redis->del($this->add_prefix($id));
 	}
 
