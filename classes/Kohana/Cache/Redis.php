@@ -43,7 +43,7 @@ class Kohana_Cache_Redis extends Cache
 		// Can be a host, or the path to a unix domain socket
 		'host' => 'localhost',
 		// Point to the port where redis is listening for connections. Set this parameter to NULL when using UNIX domain sockets. Default 6379
-		'port' => NULL,
+		'port' => 6379,
 		// The connection timeout to a redis host, expressed in seconds.
 		'timeout' => 1,
 		'db_num' => 0,
