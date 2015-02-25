@@ -27,7 +27,7 @@ class Kohana_Cache_Redis extends Cache
 	 *
 	 * @var Redis
 	 */
-	protected $_redis;
+	protected $_redis = null;
 
 	/**
 	 * @var Config
@@ -43,7 +43,7 @@ class Kohana_Cache_Redis extends Cache
 		// Can be a host, or the path to a unix domain socket
 		'host' => 'localhost',
 		// Point to the port where redis is listening for connections. Set this parameter to NULL when using UNIX domain sockets. Default 6379
-		'port' => NULL,
+		'port' => 6379,
 		// The connection timeout to a redis host, expressed in seconds.
 		'timeout' => 1,
 		'db_num' => 0,
@@ -103,6 +103,9 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function get($id, $default = NULL)
 	{
+		if (!$this->_redis || $this->_redis->IsConnected() === FALSE)
+			throw new Cache_Exception('No connect to server');
+			
 		// Get the value from Redis
 		$value = $this->_redis->get($this->add_prefix($id));
 
@@ -125,6 +128,9 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function set($id, $data, $lifetime = false)
 	{
+		if (!$this->_redis || $this->_redis->IsConnected() === FALSE)
+			throw new Cache_Exception('No connect to server');
+			
 		if ($lifetime)
 		{
 			return $this->_redis->setex($this->add_prefix($id), $lifetime, $data);
@@ -143,7 +149,10 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function add_prefix($id)
 	{
-		return (string)$this->_config['prefix_id'].$id;
+		if (!empty($this->_config['prefix_id']))
+			return $this->_config['prefix_id'] . $id;
+		else
+			return $id;
 	}
 
 	/**
@@ -154,6 +163,9 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function delete($id)
 	{
+		if (!$this->_redis || $this->_redis->IsConnected() === FALSE)
+			throw new Cache_Exception('No connect to server');
+			
 		return $this->_redis->del($this->add_prefix($id));
 	}
 
