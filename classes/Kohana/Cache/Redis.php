@@ -27,7 +27,7 @@ class Kohana_Cache_Redis extends Cache
 	 *
 	 * @var Redis
 	 */
-	protected $_redis = null;
+	protected $_redis = NULL;
 
 	/**
 	 * @var Config
@@ -103,9 +103,11 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function get($id, $default = NULL)
 	{
-		if (!$this->_redis || $this->_redis->IsConnected() === FALSE)
-			throw new Cache_Exception('No connect to server');
-			
+		if ( ! $this->_redis AND $this->_redis->IsConnected() === FALSE)
+		{
+			throw new Cache_Exception('No connect to Redis server');
+		}
+
 		// Get the value from Redis
 		$value = $this->_redis->get($this->add_prefix($id));
 
@@ -121,16 +123,18 @@ class Kohana_Cache_Redis extends Cache
 	/**
 	 * Set a value to cache
 	 *
-	 * @param   string      $id id of cache to entry
-	 * @param   mixed       $data mixed data
-	 * @param   bool|int    $lifetime Expire time in seconds
+	 * @param   string $id id of cache to entry
+	 * @param   mixed $data mixed data
+	 * @param   bool|int $lifetime Expire time in seconds
 	 * @return  bool        TRUE if the command is successful
 	 */
 	public function set($id, $data, $lifetime = false)
 	{
-		if (!$this->_redis || $this->_redis->IsConnected() === FALSE)
-			throw new Cache_Exception('No connect to server');
-			
+		if ( ! $this->_redis AND $this->_redis->IsConnected() === FALSE)
+		{
+			throw new Cache_Exception('No connect to Redis server');
+		}
+
 		if ($lifetime)
 		{
 			return $this->_redis->setex($this->add_prefix($id), $lifetime, $data);
@@ -144,15 +148,19 @@ class Kohana_Cache_Redis extends Cache
 	/**
 	 * Added prefix to `$id`
 	 *
-	 * @param	string	$id
-	 * @return	string
+	 * @param    string $id
+	 * @return    string
 	 */
 	public function add_prefix($id)
 	{
-		if (!empty($this->_config['prefix_id']))
-			return $this->_config['prefix_id'] . $id;
+		if ( ! empty($this->_config['prefix_id']))
+		{
+			return $this->_config['prefix_id'].$id;
+		}
 		else
+		{
 			return $id;
+		}
 	}
 
 	/**
@@ -163,9 +171,11 @@ class Kohana_Cache_Redis extends Cache
 	 */
 	public function delete($id)
 	{
-		if (!$this->_redis || $this->_redis->IsConnected() === FALSE)
-			throw new Cache_Exception('No connect to server');
-			
+		if ( ! $this->_redis AND $this->_redis->IsConnected() === FALSE)
+		{
+			throw new Cache_Exception('No connect to Redis server');
+		}
+
 		return $this->_redis->del($this->add_prefix($id));
 	}
 
