@@ -26,6 +26,7 @@ Config. Add to Kohana cache config redis driver `config/cache.php`
         'host'               => 'localhost',
         'db_num'             => 0,
         'igbinary_serialize' => false,
+        'password'           => '',
     ),
     ...
 
