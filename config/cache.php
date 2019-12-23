@@ -25,5 +25,6 @@ return array
 		'igbinary_serialize' => FALSE,
 		// Custom prefix, added to all `$id` in `set`, `get`, `delete` methods
 		'prefix_id' => NULL,
+		'password' => NULL,
 	),
 );

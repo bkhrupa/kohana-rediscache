@@ -51,6 +51,7 @@ class Kohana_Cache_Redis extends Cache
 		'igbinary_serialize' => false,
 		// Custom prefix, added to all `$id` in `set`, `get`, `delete` methods
 		'prefix_id' => NULL,
+		'password' => NULL,
 	);
 
 	/**
@@ -89,6 +90,10 @@ class Kohana_Cache_Redis extends Cache
 			// Serialize by php
 			// @url https://github.com/nicolasff/phpredis/#setoption
 			$this->_redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP);
+		}
+		
+		if ($this->_config['password']) {
+		    $this->_redis->auth($this->_config['password']);
 		}
 
 		// Select database
